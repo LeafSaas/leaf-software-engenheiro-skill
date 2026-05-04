@@ -22,7 +22,7 @@ O caminho instalavel da skill neste repo e:
 Se a pessoa ja tiver Codex e o skill installer disponivel:
 
 ```bash
-python ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
+python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
   --repo ramosbezzu/leaf-software-engenheiro-skill \
   --path skills/leaf-software-engenheiro
 ```
@@ -30,14 +30,14 @@ python ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github
 Ou por URL:
 
 ```bash
-python ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
+python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
   --url https://github.com/ramosbezzu/leaf-software-engenheiro-skill/tree/main/skills/leaf-software-engenheiro
 ```
 
 Depois da instalacao:
 
 ```bash
-restart Codex
+Restart Codex to pick up new skills.
 ```
 
 ## Uso
