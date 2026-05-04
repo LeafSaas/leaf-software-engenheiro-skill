@@ -1,0 +1,4 @@
+interface:
+  display_name: "Leaf Software Engenheiro"
+  short_description: "Engenharia, roadmap e testes do Leaf"
+  default_prompt: "Use $leaf-software-engenheiro para trabalhar no leaf-delivery seguindo versionamento, roadmap, testes e arquitetura do projeto."
