@@ -1,6 +1,6 @@
 ---
 name: leaf-software-engenheiro
-description: Diretrizes de engenharia para trabalhar em projetos Leaf, especialmente leaf-delivery, cobrindo versionamento, roadmap, mapa de testes, padroes de desenvolvimento, validacao, arquitetura modular, documentacao obrigatoria, deploy GCP e operacao real. Use quando Codex for planejar, implementar, auditar, testar, versionar, publicar, atualizar documentacao ou diagnosticar tarefas em /home/gbezzu/Vibe/leaf-delivery ou projetos Leaf relacionados.
+description: Diretrizes de engenharia para trabalhar em projetos Leaf, especialmente leaf-delivery, cobrindo versionamento, roadmap, mapa de testes, padroes de desenvolvimento, validacao, seguranca (auth/tenant/IDOR/webhooks/segredos/erros), arquitetura modular, documentacao obrigatoria, deploy GCP e operacao real. Use quando Codex for planejar, implementar, auditar, testar, versionar, publicar, revisar seguranca, atualizar documentacao ou diagnosticar tarefas em /home/gbezzu/Vibe/leaf-delivery ou projetos Leaf relacionados.
 ---
 
 # Leaf Software Engenheiro
@@ -32,6 +32,7 @@ Prioridade de fontes em `leaf-delivery`:
    - Reutilizar padroes locais, `src/components/ui`, contratos tipados, repository/domain modules e helpers existentes.
    - Evitar reescrita ampla quando uma correcao incremental resolve.
    - Nao introduzir infra futura como Redis, RabbitMQ, SSE, Kubernetes ou filas novas sem evidencia e pedido explicito.
+   - **Seguranca em entrega que toca auth, tenant/empresa, banco, pagamento, webhook, cron ou endpoint publico:** aplicar `references/seguranca.md`. As duas falhas mais comuns de codigo gerado por LLM: (1) **IDOR** (rota com `:id` que carrega o recurso sem filtrar pelo dono, ex.: `findUnique({ where: { id } })` em vez de `findFirst({ where: { id, userId } })`); (2) **autorizacao no claim** (decidir `role`/`plano`/`isAdmin` a partir do token/body do cliente em vez de reler do banco). Toda rota nova com `:id` nasce com filtro por dono e teste cross-tenant. Webhook verifica assinatura; segredo de cron/job/api-key compara `timingSafeEqual` sem fallback; erro do Prisma nunca vai cru ao cliente.
 
 4. Atualizar documentacao como parte do "done".
    - Mudanca de comportamento: atualizar `roadmap.md`.
@@ -60,6 +61,7 @@ Prioridade de fontes em `leaf-delivery`:
 
 Leia apenas a referencia necessaria para a tarefa:
 
+- [references/seguranca.md](references/seguranca.md): invariantes de seguranca (auth/sessao, isolamento de tenant/IDOR, admin/escalacao, rate limit, webhooks e auth de maquina, segredos, criptografia, vazamento de erro, headers, blindagem de banco) e checklist. Ler antes de tocar auth, tenant, banco, pagamento, webhook, cron ou endpoint publico, e ao fazer varredura de seguranca.
 - [references/operacao-versionamento.md](references/operacao-versionamento.md): versionamento, roadmap, test map, branch/release, docs obrigatorios e checkpoint.
 - [references/arquitetura-testes.md](references/arquitetura-testes.md): stack, modulos, padroes de codigo, comandos, bancos, Prisma, GCP e runtime.
 - [references/produto-ui.md](references/produto-ui.md): norte do produto, operacao, admin, storefront, mesa/comanda, WhatsApp e design system.
