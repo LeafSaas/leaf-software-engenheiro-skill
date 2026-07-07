@@ -126,7 +126,7 @@ Producao GCP:
 
 ## Restricoes
 
-- Nao usar Playwright neste projeto salvo se o usuario revogar explicitamente a regra corrente.
+- Playwright esta liberado para validacao visual (abrir rota, screenshot e regressao visual), seguindo o workflow visual de `AGENTS.md`; nao transformar em suite de specs. Complementar sempre com testes, typecheck, build e curl/smoke HTTP.
 - Para storefront grande, evitar scripts Python auxiliares; editar de forma guiada e incremental.
 - Nao antecipar K8s, Redis, RabbitMQ, SSE ou Pub/Sub como backlog ativo sem pedido e metrica real.
 - Nao tratar `bis_skin_checked` como bug do app sem validar em navegador limpo.

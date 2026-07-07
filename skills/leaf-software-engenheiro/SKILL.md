@@ -41,12 +41,17 @@ Prioridade de fontes em `leaf-delivery`:
    - UI/cliente: atualizar `reforma.md`, `DESIGN.MD` e/ou `CLIENT.DESIGN.md`.
    - Cor/token/brand: atualizar `COLORS.MD`.
    - Deploy/GCP/runtime: atualizar `docs/gcp-release-flow.md` ou runbook ativo.
+   - **README.md raiz e a fonte de verdade mais consultada do sistema.** Quando a entrega mudar
+     versao/live, rota, integracao/homologacao, stack, env, script ou estrutura de pastas, atualizar
+     o `README.md` raiz no mesmo conjunto de mudancas, seguindo o metodo de
+     `references/readme-fonte-de-verdade.md` (atualizar, nunca reescrever do zero; manter e expandir
+     os Mermaids; badges por fileira; status honesto de homologado x em breve x planejado).
 
 5. Validar no nivel certo.
    - Gate minimo para entrega de codigo: `npm run typecheck` e `npm test`.
    - Quando aplicavel: `npm run lint`, `npm run build`, `npx prisma validate`, `npm run db:prod:migrate:status`.
    - Se a entrega afetar producao com migrations: aplicar/registrar `npm run db:prod:migrate:deploy` antes de publicar.
-   - Nao usar Playwright neste projeto; quando precisar de validacao visual/manual, pedir que o interlocutor abra as rotas e testar o caminho real por HTTP, scripts ou runtime local.
+   - Validacao visual/manual: Playwright esta disponivel para abrir a rota, capturar screenshot e inspecionar regressao visual (ver o workflow visual em `AGENTS.md`). Sem virar suite de specs. Complementar sempre com testes, typecheck, build, curl/smoke HTTP e runtime local.
 
 ## Decisoes rapidas
 
@@ -54,7 +59,7 @@ Prioridade de fontes em `leaf-delivery`:
 - "Hotfix" + "push na main": corrigir o menor escopo possivel, validar localmente, atualizar docs necessarios, commitar e publicar.
 - "Verifique o que falta": auditar estado real contra roadmap/test map/design docs antes de propor trabalho.
 - "Nao reescreve inteira": manter patch incremental e preservar fluxo existente.
-- "Sem Playwright": usar testes unitarios, typecheck, build, curl/smoke HTTP e validacao manual guiada.
+- Validacao visual: Playwright pode ser usado para screenshot/regressao visual (sem virar suite de specs); complementar com testes unitarios, typecheck, build, curl/smoke HTTP e validacao manual guiada.
 - Logs de producao ou erro real: diagnosticar pelo corpo da resposta/log, nao por suposicao.
 
 ## Referencias
@@ -63,5 +68,6 @@ Leia apenas a referencia necessaria para a tarefa:
 
 - [references/seguranca.md](references/seguranca.md): invariantes de seguranca (auth/sessao, isolamento de tenant/IDOR, admin/escalacao, rate limit, webhooks e auth de maquina, segredos, criptografia, vazamento de erro, headers, blindagem de banco) e checklist. Ler antes de tocar auth, tenant, banco, pagamento, webhook, cron ou endpoint publico, e ao fazer varredura de seguranca.
 - [references/operacao-versionamento.md](references/operacao-versionamento.md): versionamento, roadmap, test map, branch/release, docs obrigatorios e checkpoint.
+- [references/readme-fonte-de-verdade.md](references/readme-fonte-de-verdade.md): como criar e atualizar o `README.md` raiz como fonte de verdade (atualizar sem reescrever, badges/visuais, integracoes e homologacoes, mapa de rotas, diagramas Mermaid mantidos e expandidos). Ler ao atualizar o README apos mudanca de versao, rota, integracao, stack, env ou estrutura.
 - [references/arquitetura-testes.md](references/arquitetura-testes.md): stack, modulos, padroes de codigo, comandos, bancos, Prisma, GCP e runtime.
 - [references/produto-ui.md](references/produto-ui.md): norte do produto, operacao, admin, storefront, mesa/comanda, WhatsApp e design system.
